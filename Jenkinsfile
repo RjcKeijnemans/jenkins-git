@@ -23,8 +23,11 @@ pipeline {
                 sh '''
                     app_lines=`cat app.sh | wc -l`
                     cov_lines=`cat ${BUILD_ID}.cov | wc -l`
-                    echo The app hass `expr $app_lines - $cov_lines' lines uncovered > ${BUILD_ID}.cov
+                    echo The app hass `expr $app_lines - $cov_lines' lines uncovered > ${BUILD_ID}.rpt
+                
+                    cat "${BUILD_IP}.rpt"
                 '''
+                archiveArtifacts "${env.BUILD_ID}.rpt"
             }
         }
     }
